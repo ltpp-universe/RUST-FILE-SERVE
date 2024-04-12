@@ -11,27 +11,35 @@ pub struct Db {
 }
 
 impl Db {
-    pub fn new(db: &Db) -> Self {
+    pub fn connect(&mut self) -> Self {
         let connect_sql = format!(
             "{}://{}:{}@{}:{}/{}",
-            db.database_type,
-            db.username,
-            db.password,
-            db.database_ip,
-            db.database_port,
-            db.database_name
+            self.database_type,
+            self.username,
+            self.password,
+            self.database_ip,
+            self.database_port,
+            self.database_name
         );
         let pool = Pool::new(Opts::from_url(&connect_sql).unwrap()).unwrap();
         unsafe {
             CONNECTION = Some(pool.get_conn().unwrap());
         }
         Self {
-            database_type: db.database_type.clone(),
-            username: db.username.clone(),
-            password: db.password.clone(),
-            database_ip: db.database_ip.clone(),
-            database_port: db.database_port.clone(),
-            database_name: db.database_name.clone(),
+            database_type: self.database_type.clone(),
+            username: self.username.clone(),
+            password: self.password.clone(),
+            database_ip: self.database_ip.clone(),
+            database_port: self.database_port.clone(),
+            database_name: self.database_name.clone(),
+        }
+    }
+
+    pub fn close(&mut self) {
+        unsafe {
+            if let Some(conn) = &mut CONNECTION {
+                drop(conn);
+            }
         }
     }
 

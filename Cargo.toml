@@ -5,18 +5,3 @@ edition = "2021"
 
 [dependencies]
 mysql = "19.0.1"
-
-[source.crates-io]
-replace-with = 'rsproxy-sparse'
-
-[source.rsproxy]
-registry = "https://rsproxy.cn/crates.io-index"
-
-[source.rsproxy-sparse]
-registry = "sparse+https://rsproxy.cn/index/"
-
-[registries.rsproxy]
-index = "https://rsproxy.cn/crates.io-index"
-
-[net]
-git-fetch-with-cli = true

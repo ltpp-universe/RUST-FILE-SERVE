@@ -1,5 +1,4 @@
 mod sql;
-use std::process::exit;
 
 use sql::Db;
 
@@ -12,7 +11,8 @@ fn main() {
         password: "SQS".to_owned(),
         username: "root".to_owned(),
     };
-    Db::new(&_db);
-    Db::creat_table(&mut _db, 1);
-    exit(0);
+    _db.connect();
+    _db.creat_table(1);
+    _db.close();
+    return;
 }
