@@ -6,13 +6,15 @@ fn main() {
     let mut _db: Db = Db {
         database_type: "mysql".to_owned(),
         database_name: "file".to_owned(),
-        database_ip: "127.0.0.1".to_owned(),
-        database_port: 4466,
-        password: "SQS".to_owned(),
+        database_ip: "ltpp.vip".to_owned(),
+        database_port: 60002,
+        password: "ltpp".to_owned(),
         username: "root".to_owned(),
     };
     _db.connect();
-    _db.creat_table(1);
+    for idx in 1..=10 {
+        _db.creat_table(idx);
+    }
     _db.close();
     return;
 }
